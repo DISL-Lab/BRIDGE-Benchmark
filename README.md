@@ -46,3 +46,10 @@ BRIDGE refines **7 major IR benchmark subsets** from **BEIR** and **RobustQA**, 
 | **Total** | - | - | **3,657** | **6,976** | **36,800** |
 
 ---
+
+## 🏃 Quick Start
+1. Loading the Dataset
+Load the BRIDGE benchmark data directly from HuggingFace or using our loader script.
+
+2. Evaluating Your Retriever
+We provide a unified evaluation script compatible with standard TREC-style formatting.
