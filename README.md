@@ -28,16 +28,15 @@ BRIDGE is a refined IR benchmark dataset that addresses the critical problem of 
 
 ### Key Statistics
 
-| Dataset | Domain | # Queries | # Original Gold | # BRIDGE Gold | Increase |
+| Dataset | Domain | # Queries | Avg. # Chunk per Query in Original | Avg. # Chunk per Query in BRIDGE |
 |---------|--------|-----------|----------------|---------------|----------|
-| MS MARCO | Web Search | 550 | 550 | 9,224 | +1,577% |
-| NQ | Web Search | 550 | 3,874 | 7,748 | +100% |
-| Lifestyle | Community QA | 550 | 550 | 3,636 | +561% |
-| Recreation | Community QA | 550 | 550 | 2,547 | +363% |
-| Science | Community QA | 357 | 357 | 5,744 | +1,509% |
-| Technology | Community QA | 550 | 550 | 6,005 | +992% |
-| Writing | Community QA | 550 | 545 | 4,896 | +798% |
-| **Total** | - | **3,657** | **6,976** | **36,800** | **+428%** |
+| MS MARCO | Web Search | 550 | - | 16.77 | 
+| NQ | Web Search | 550 | -| 7.04 |
+| Lifestyle | Community QA | 550 | -| 6.61 |
+| Recreation | Community QA | 550 | - | 4.63 |
+| Science | Community QA | 357 | - | 16.09 |
+| Technology | Community QA | 550 | - | 10.92 |
+| Writing | Community QA | 550 | - | 8.52 |
 
 ---
 
