@@ -6,18 +6,14 @@
 [![Dataset](https://img.shields.io/badge/Dataset-HuggingFace-yellow)](link-to-huggingface)
 [![License](https://img.shields.io/badge/License-MIT-green)](LICENSE)
 
-**Debate-based RElevance Assessment with Multi-agents for Accurate and Scalable IR Benchmarks**
-
-[Paper](link-to-paper) | [Dataset](link-to-dataset) | [Code](link-to-code)
-
 </div>
 
 ---
 
 ## 📢 News
 
-- **[2026-XX]** BRIDGE dataset is now available on HuggingFace!
-- **[2026-XX]** Paper accepted to ICLR 2026!
+- **[2026-02]** BRIDGE dataset is now available on HuggingFace!
+- **[2026-01]** Paper accepted to ICLR 2026!
 
 ---
 
