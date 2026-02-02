@@ -28,15 +28,15 @@ BRIDGE is a refined IR benchmark dataset that addresses the critical problem of 
 
 ### Key Statistics
 
-| Dataset | Domain | # Queries | Avg. # Chunk per Query in Original | Avg. # Chunk per Query in BRIDGE |
-|---------|--------|-----------|----------------|---------------|----------|
-| MS MARCO | Web Search | 550 | - | 16.77 | 
-| NQ | Web Search | 550 | -| 7.04 |
-| Lifestyle | Community QA | 550 | -| 6.61 |
-| Recreation | Community QA | 550 | - | 4.63 |
-| Science | Community QA | 357 | - | 16.09 |
-| Technology | Community QA | 550 | - | 10.92 |
-| Writing | Community QA | 550 | - | 8.52 |
+| Dataset | Source | Domain | # Corpus | # Queries | Avg. # Chunk per Query in Original | Avg. # Chunk per Query in BRIDGE |
+|---------|--------|-----------|----------------|---------------|----------|----------|
+| MS MARCO | BEIR | Web Search | 8,841,823 | 550 | 1.05 | 16.77 | 
+| NQ | BEIR | Web Search | 550 | 2,681,468 | 1.20 | 7.04 |
+| Lifestyle | RobustQA | Cooking, Sports, Travel| 119,461 | 550 | 2.30 | 6.61 |
+| Recreation | RobustQA | Gaming, Anime, Movies | 166,975 | 550 | 2.30  | 4.63 |
+| Science | RobustQA | Math, Physics, Biology | 1,000,000 | 357 | 1.90 | 16.09 |
+| Technology | RobustQA | Apple, Android, Security | 638,509 | 550 | 2.20 | 10.92 |
+| Writing | RobustQA | English | 199,994 | 550 | 2.20 | 8.52 |
 
 ---
 
