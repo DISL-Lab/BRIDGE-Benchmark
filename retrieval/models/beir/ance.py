@@ -1,0 +1,68 @@
+import logging
+import os
+import pathlib
+import random
+import json
+
+from beir.logging import LoggingHandler
+from beir import util
+from beir.datasets.data_loader import GenericDataLoader
+from beir.retrieval import models
+from beir.retrieval.evaluation import EvaluateRetrieval
+from beir.retrieval.search.dense import DenseRetrievalExactSearch as DRES
+
+from utils import *
+
+def retrieve(dataset, k=10):
+    corpus_path = f'../datasets/beir_format/{dataset}_corpus.jsonl'
+    query_path = f'../datasets/beir_format/{dataset}_queries.jsonl'
+    
+    if dataset in ['msmarco', 'nq']:
+        corpus_path = f'../datasets/{dataset}/corpus.jsonl'
+    else:
+        if not os.path.exists(corpus_path):
+            print(f"Creating beir format file for {dataset}")
+            # corpus
+            os.makedirs(os.path.dirname(corpus_path), exist_ok=True)
+            corpus = load_jsonl(f'../robustqa-acl23/data/{dataset}/test/documents.jsonl')
+            with open(corpus_path, 'w', encoding='utf-8') as f:
+                for data in corpus:
+                    new_data = {"_id": data['doc_id'], "title": "", "text": data['text']}
+                    json_line = json.dumps(new_data, ensure_ascii=False)
+                    f.write(json_line + '\n')
+    # queries
+    if not os.path.exists(query_path):
+        df = load_bridge_dataset(dataset)
+        os.makedirs(os.path.dirname(query_path), exist_ok=True)
+        with open(query_path, 'w', encoding='utf-8') as f:
+            for data in df:
+                q_id = data['q_id']
+                data = {"_id": q_id, "text": data['query']}
+                json_line = json.dumps(data, ensure_ascii=False)
+                f.write(json_line + '\n')
+        
+    corpus, queries = get_corpus(corpus_path), get_query(query_path)
+
+    output_path = f'./results/ance/{dataset}_retrieved_corpus.json'
+
+
+    model = DRES(models.SentenceBERT("msmarco-roberta-base-ance-firstp"))
+
+    retriever = EvaluateRetrieval(model, score_function="dot")
+    results = retriever.retrieve(corpus, queries)
+
+    filtered_results = {}
+
+    for query_id, doc_scores in results.items():
+        top_k_docs = dict(sorted(doc_scores.items(), key=lambda x: x[1], reverse=True)[:k])
+        filtered_results[query_id] = {}
+        for doc_id in top_k_docs:
+            filtered_results[query_id][doc_id] = {'score': f'{top_k_docs[doc_id]:.5f}', 'text': corpus[doc_id]['contents']}
+    
+    save_json(filtered_results, output_path)
+    print(f"Results saved to {output_path}")
+
+
+
+
+
