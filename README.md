@@ -71,7 +71,9 @@ python -c "from beir import util; util.download_and_unzip('https://public.ukp.in
 python -c "from beir import util; util.download_and_unzip('https://public.ukp.informatik.tu-darmstadt.de/thakur/BEIR/datasets/nq.zip', 'datasets')"
 ```
 
-Alternatively, manually download the dataset at [BEIR GitHub](https://github.com/beir-cellar/beir)
+Alternatively, manually download the dataset at [BEIR GitHub](https://github.com/beir-cellar/beir). 
+
+Use corpus.jsonl.
 
 
 **For LoTTE datasets (Lifestyle, Recreation, Science, Technology, Writing):**
