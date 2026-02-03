@@ -5,6 +5,7 @@
 
 [![Paper](https://img.shields.io/badge/Paper-ICLR%202026-blue)](https://openreview.net/forum?id=DD5RNCHuzq&noteId=HEIdjduzOv)
 [![Dataset](https://img.shields.io/badge/Dataset-HuggingFace-yellow)](https://huggingface.co/datasets/DISLab/BRIDGE-NQ)
+[![License](https://img.shields.io/badge/License-CC%20BY%204.0-green)](https://creativecommons.org/licenses/by/4.0/)
 
 <img width="1428" height="473" alt="Image" src="https://github.com/user-attachments/assets/5dfddc1e-7a22-460e-bd9d-b8a7260e7470" />
 
@@ -189,15 +190,15 @@ If you use BRIDGE in your research, please cite our paper:
 
 ## 📄 License
 
-This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
+This project is licensed under **CC BY 4.0** (Creative Commons Attribution 4.0 International) - see the [LICENSE](LICENSE) file for details.
 
 ### Source Dataset Licenses
 
 BRIDGE builds upon existing datasets. Please respect their original licenses:
 
-- **MS MARCO**: [Microsoft Research Data License](https://microsoft.github.io/msmarco/)
+- **MS MARCO**: [CC BY 4.0](https://github.com/microsoft/msmarco/blob/master/LICENSE)
 - **Natural Questions (NQ)**: [Apache License 2.0](https://github.com/google-research-datasets/natural-questions/blob/master/LICENSE)
-- **LoTTE (RobustQA subsets)**: Please refer to [RobustQA repository](https://github.com/awslabs/robustqa-acl23)
+- **LoTTE (RobustQA subsets)**: No specific license specified. See [RobustQA repository disclaimers](https://github.com/awslabs/robustqa-acl23)
 
 When using BRIDGE, please ensure compliance with the original dataset licenses.
 
