@@ -3,21 +3,13 @@
 <div align="center">
 
 [![Paper](https://img.shields.io/badge/Paper-ICLR%202026-blue)](https://openreview.net/forum?id=DD5RNCHuzq&noteId=HEIdjduzOv)
-[![Dataset](https://img.shields.io/badge/Dataset-HuggingFace-yellow)](link-to-huggingface)
-[![License](https://img.shields.io/badge/License-MIT-green)](LICENSE)
+[![Dataset](https://img.shields.io/badge/Dataset-HuggingFace-yellow)](https://huggingface.co/datasets/DISLab/BRIDGE-NQ)
 
 </div>
 
 ---
 
-## 📢 News
-
-- **[2026-02]** BRIDGE dataset is now available on HuggingFace!
-- **[2026-01]** Paper accepted to ICLR 2026!
-
----
-
-## 🔍 Overview
+# 🔍 Overview
 
 BRIDGE is a refined IR benchmark dataset that addresses the critical problem of **missing relevant chunks (holes)** in existing IR evaluation datasets. By applying our novel **DREAM** (Debate-based RElevance Assessment with Multi-agents) framework, we:
 
@@ -26,7 +18,7 @@ BRIDGE is a refined IR benchmark dataset that addresses the critical problem of 
 - ✅ Maintained **95.2% labeling accuracy** with only **3.5% human involvement**
 - 🔧 Enabled fairer retrieval system comparisons and more aligned RAG evaluation
 
-### Key Statistics
+## Key Statistics
 
 | Dataset | Source | Domain | # Corpus | # Queries | Avg. # C/Q in Original | Avg. # C/Q in BRIDGE |
 |---------|--------|-----------|----------------|---------------|----------|----------|
@@ -40,9 +32,9 @@ BRIDGE is a refined IR benchmark dataset that addresses the critical problem of 
 
 ---
 
-## 🚀 Quick Start
+# 🚀 Quick Start
 
-### Installation
+## Installation
 ```bash
 # Clone the repository
 git clone https://github.com/your-org/bridge-benchmark.git
@@ -57,7 +49,7 @@ BRIDGE provides refined annotations for existing benchmark datasets. We utilize 
 To use BRIDGE, you need to download the source corpora and apply our annotations.
 
 
-### Step 1: Download Source Corpora
+## Step 1: Download Source Corpora
 
 **For MS MARCO & NQ:**
 ```bash
@@ -99,7 +91,7 @@ python code/process_raw.py --data {lifestyle|recreation|technology|science|writi
 ```
 We adopt documents.jsonl as a corpus.
 
-### Step 2: Download BRIDGE Annotations
+## Step 2: Download BRIDGE Annotations
 
 We provide the refined relevance annotations, query IDs, relevant document IDs, and answers for all datasets on huggingface:
 
@@ -109,9 +101,9 @@ python datasets/qrels/get_data.py
 
 ---
 
-## 📊 Evaluating Retriever on BRIDGE
+# 📊 Evaluating Retriever on BRIDGE
 
-### Retrieval Systems Example
+## Retrieval Systems Example
 
 We provide some retrieval systems evaluated in our paper:
 ```python
@@ -124,13 +116,13 @@ python retrieve.py --model {retriever_name} --dataset {dataset_name} --k 10
 python evaluation.py --model {retriever_name} --dataset {dataset_name} --k 10
 ```
 
-### Evaluate Your Retrieval System
+## Evaluate Your Retrieval System
 Put your retrieved results on path retrieval/results/{retriever_name}/{dataset_name}_retrieved_corpus.json, and run:
 ```python
 python evaluation.py --model {retriever_name} --dataset {dataset_name} --k 10
 ```
 
-### RAG Evaluation
+## RAG Evaluation
 
 ```python
 # Generation
@@ -144,9 +136,9 @@ python evaluation.py --model {retriever_name} --dataset {dataset_name} --llm_eva
 ---
 
 
-## 📈 Main Results
+# 📈 Main Results
 
-### Retrieval Performance Improvement
+## Retrieval Performance Improvement
 
 After filling holes with BRIDGE, all 25 retrieval systems show improved Hit@10 scores:
 
@@ -158,7 +150,7 @@ After filling holes with BRIDGE, all 25 retrieval systems show improved Hit@10 s
 | ANCE + Rerank | TinyBERT, MonoT5 | +0.14 |
 | BM25 + Rewrite | HyDE, Q2D, MuGI | **+0.25** |
 
-### Retrieval-Generation Alignment
+## Retrieval-Generation Alignment
 
 BRIDGE significantly improves RAG evaluation reliability:
 
@@ -196,12 +188,6 @@ BRIDGE builds upon existing datasets with the following licenses:
 - **LoTTE (RobustQA subsets)**: Please refer to [RobustQA repository](https://github.com/awslabs/robustqa-acl23)
 
 When using BRIDGE, please ensure compliance with the original dataset licenses.
-
----
-
-## 🙏 Acknowledgments
-
-We thank the creators of BEIR and RobustQA for providing the foundational benchmarks that made this work possible.
 
 ---
 
