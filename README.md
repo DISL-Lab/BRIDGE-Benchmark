@@ -1,4 +1,4 @@
-# 🌉 BRIDGE: A Reliable Information Retrieval Benchmark with Complete Annotations
+# 🌉 BRIDGE: A Reliable Information Retrieval Benchmark with Complete Annotations (ICLR 2026)
 
 <div align="center">
 
@@ -194,8 +194,8 @@ When using BRIDGE, please ensure compliance with the original dataset licenses.
 ## 📧 Contact
 
 For questions or issues, please:
-- Open an issue on [GitHub](https://github.com/your-org/bridge-benchmark/issues)
-- Contact: [your-email@domain.com](mailto:your-email@domain.com)
+- Open an issue on [GitHub](https://github.com/DISL-Lab/bridge-benchmark/issues)
+- Contact: [minjeong.ban@kaist.ac.kr](mailto:minjeong.ban@kaist.ac.kr)
 
 ---
 
