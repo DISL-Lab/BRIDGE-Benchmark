@@ -52,7 +52,7 @@ cd bridge-benchmark
 pip install -r requirements.txt
 ```
 
-BRIDGE provides refined annotations for existing benchmark datasets. We utilize seven IR benchmark subsets: MS MARCO and NQ from [BEIR](https://github.com/beir-cellar/beir); and Lifestyle, Recreation, Science, Technology, and Writing from [RobustQA](https://github.com/awslabs/robustqa-acl23). 
+BRIDGE provides refined annotations for existing benchmark datasets. We utilize seven IR benchmark test subsets: MS MARCO and NQ from [BEIR](https://github.com/beir-cellar/beir); and Lifestyle, Recreation, Science, Technology, and Writing from [RobustQA](https://github.com/awslabs/robustqa-acl23). 
 
 To use BRIDGE, you need to download the source corpora and apply our annotations.
 
@@ -73,7 +73,7 @@ python -c "from beir import util; util.download_and_unzip('https://public.ukp.in
 
 Alternatively, manually download the dataset at [BEIR GitHub](https://github.com/beir-cellar/beir). 
 
-Use corpus.jsonl.
+We adopt corpus.jsonl as a corpus.
 
 
 **For LoTTE datasets (Lifestyle, Recreation, Science, Technology, Writing):**
@@ -83,164 +83,66 @@ Follow the instructions from [RobustQA GitHub](https://github.com/awslabs/robust
 ```bash
 # Clone RobustQA repository
 git clone https://github.com/awslabs/robustqa-acl23.git
-cd robustqa-acl23
+cd robustqa-acl23/data
 
 # Follow their instructions to download and preprocess LoTTE datasets
 # The LoTTE datasets include: lifestyle, recreation, science, technology, writing
+wget -c "https://downloads.cs.stanford.edu/nlp/data/colbert/colbertv2/lotte.tar.gz"
+tar -xvzf lotte.tar.gz
 ```
-- Download raw data here: [https://downloads.cs.stanford.edu/nlp/data/colbert/colbertv2/lotte.tar.gz](https://downloads.cs.stanford.edu/nlp/data/colbert/colbertv2/lotte.tar.gz) into robustqa-acl23/data/lotte.
+- Download raw data here: [https://downloads.cs.stanford.edu/nlp/data/colbert/colbertv2/lotte.tar.gz](https://downloads.cs.stanford.edu/nlp/data/colbert/colbertv2/lotte.tar.gz) into robustqa-acl23/data.
 - Annotations: there is no data license specfied [https://github.com/stanford-futuredata/ColBERT/blob/main/LoTTE.md](https://github.com/stanford-futuredata/ColBERT/blob/main/LoTTE.md). We only keep doc_id and qid in the published annotation files.
 - To replicate documents.jsonl and annotations.jsonl, run:
 ```bash
-python code/process_raw.py --dataset {lifestyle|recreation|technology|science|writing} --split {test|dev}
+python ../move_lotte_files.py
+python code/process_raw.py --data {lifestyle|recreation|technology|science|writing} --split {test}
 ```
-Please refer to the RobustQA repository for detailed preprocessing steps.
+We adopt documents.jsonl as a corpus.
 
 ### Step 2: Download BRIDGE Annotations
 
 We provide the refined relevance annotations, query IDs, relevant document IDs, and answers for all datasets on huggingface:
 
 ```python
-from datasets import load_dataset
-
-# Access annotations for each dataset
-msmarco_bridge = load_dataset("DISLab/BRIDGE-MSMARCO")
-nq_bridge = load_dataset("DISLab/BRIDGE-NQ")
-lotte_bridge = load_datast("DISLab/BRIDGE-LoTTE")
-
-msmarco = msmarco_bridge["test"]
-nq = nq_bridge["test"]
-lifestyle = lotte_bridge["lifestyle"]
-recreation = lotte_bridge["recreation"]
-science = lotte_bridge["science"]
-technology = lotte_bridge["technology"]
-writing = lotte_bridge["writing"]
+python datasets/qrels/get_data.py
 ```
-
-
-### Step 3: Merge Corpus with BRIDGE Annotations
-```python
-from bridge import merge_annotations
-
-# Merge source corpus with BRIDGE annotations
-bridge_dataset = merge_annotations(
-    corpus_path="datasets/msmarco/corpus.jsonl",  # Path to BEIR corpus
-    annotations_path="bridge_annotations/ms_marco/qrels_bridge.tsv",
-    queries_path="bridge_annotations/ms_marco/queries.jsonl",
-    answers_path="bridge_annotations/ms_marco/answers.jsonl"
-)
-```
-
-Or use our automated script:
-```bash
-# Merge all datasets at once
-python scripts/build_bridge.py \
-    --beir_path datasets/ \
-    --lotte_path robustqa-acl23/data/lotte/ \
-    --bridge_annotations bridge_annotations/ \
-    --output_path bridge_complete/
-```
-
 
 ---
 
-## 📊 Evaluating Your Retriever on BRIDGE
+## 📊 Evaluating Retriever on BRIDGE
 
-### Basic Evaluation
+### Retrieval Systems Example
+
+We provide some retrieval systems evaluated in our paper:
 ```python
-from bridge import BRIDGEvaluator
 
-# Initialize evaluator
-evaluator = BRIDGEvaluator(dataset="ms_marco")
+# Retrieve
+cd retrieval
+python retrieve.py --model {retriever_name} --dataset {dataset_name} --k 10
 
-# Your retriever function: query -> List[retrieved_chunks]
-def your_retriever(query):
-    # Your retrieval logic here
-    return retrieved_chunks
-
-# Evaluate
-results = evaluator.evaluate(
-    retriever=your_retriever,
-    metrics=["hit@10", "ndcg@10", "recall@10"]
-)
-
-print(f"Hit@10: {results['hit@10']:.3f}")
-print(f"nDCG@10: {results['ndcg@10']:.3f}")
+# Evaluation
+python evaluation.py --model {retriever_name} --dataset {dataset_name} --k 10
 ```
 
-### Benchmark 25 Retrieval Systems
-
-We provide ready-to-use implementations of 25 retrieval systems evaluated in our paper:
+### Evaluate Your Retrieval System
+Put your retrieved results on path retrieval/results/{retriever_name}/{dataset_name}_retrieved_corpus.json, and run:
 ```python
-from bridge.retrievers import BM25, SPLADE, DPR, Arctic, get_all_retrievers
-
-# Evaluate single retriever
-bm25 = BM25()
-results = evaluator.evaluate(bm25, metrics=["hit@10", "ndcg@10"])
-
-# Evaluate all 25 systems
-all_retrievers = get_all_retrievers()
-benchmark_results = evaluator.benchmark(all_retrievers)
+python evaluation.py --model {retriever_name} --dataset {dataset_name} --k 10
 ```
 
 ### RAG Evaluation
 
-Evaluate retrieval-generation alignment:
 ```python
-from bridge import RAGEvaluator
+# Generation
+cd generation
+CUDA_VISIBLE_DEVICES=6 python generate.py --model tct_colbert --dataset nq --k 10
 
-# Initialize RAG evaluator
-rag_eval = RAGEvaluator(
-    dataset="ms_marco",
-    generator="llama3.1-8b-instruct"
-)
-
-# Evaluate RAG pipeline
-rag_results = rag_eval.evaluate(
-    retriever=your_retriever,
-    metrics=["hit@10", "rag_align@10", "generation_accuracy"]
-)
-
-print(f"Retrieval-Generation Alignment: {rag_results['rag_align@10']:.3f}")
+# Evaluation
+python evaluation.py --model {retriever_name} --dataset {dataset_name} --llm_eval True --api_key {Your-OpenAI-API-Key}
 ```
 
 ---
 
-## 🔬 DREAM Framework
-
-Our DREAM (Debate-based RElevance Assessment with Multi-agents) framework enables high-quality annotation with minimal human effort:
-
-### Key Features
-
-- **🤖 Multi-Agent Debate**: Two LLM agents with opposing stances debate chunk relevance
-- **🔄 Iterative Refinement**: Multi-round reciprocal critique until consensus or escalation
-- **👥 Smart Escalation**: Only 3.5% of cases escalated to humans based on disagreement
-- **📚 Debate History**: Provides context to human annotators for informed decisions
-
-### Using DREAM for Your Own Annotations
-```python
-from dream import DREAMAnnotator
-
-# Initialize DREAM
-annotator = DREAMAnnotator(
-    model="llama3.3-70b-instruct",
-    max_rounds=2,
-    temperature=0.0
-)
-
-# Annotate query-chunk pairs
-results = annotator.annotate(
-    queries=your_queries,
-    chunks=your_chunks,
-    answers=your_answers
-)
-
-# Access consensus and escalated cases
-consensus = results["consensus"]  # 96.5% of cases
-escalated = results["escalated"]  # 3.5% for human review
-```
-
----
 
 ## 📈 Main Results
 
