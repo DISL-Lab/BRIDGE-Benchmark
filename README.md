@@ -1,55 +1,71 @@
-# 🌉 BRIDGE: A Reliable Information Retrieval Benchmark with Complete Annotations (ICLR 2026)
-
-<div>
+<div align="center">
+  
+# 🌉 BRIDGE
+## A Reliable Information Retrieval Benchmark with Complete Annotations (ICLR 2026)
 
 [![Paper](https://img.shields.io/badge/Paper-ICLR%202026-blue)](https://openreview.net/forum?id=DD5RNCHuzq&noteId=HEIdjduzOv)
 [![Dataset](https://img.shields.io/badge/Dataset-HuggingFace-yellow)](https://huggingface.co/datasets/DISLab/BRIDGE-NQ)
+
+<img width="1428" height="473" alt="Image" src="https://github.com/user-attachments/assets/5dfddc1e-7a22-460e-bd9d-b8a7260e7470" />
 
 </div>
 
 
 # 🔍 Overview
-<img width="1428" height="473" alt="Image" src="https://github.com/user-attachments/assets/5dfddc1e-7a22-460e-bd9d-b8a7260e7470" />
 
-BRIDGE is a refined IR benchmark dataset that addresses the critical problem of **missing relevant chunks (holes)** in existing IR evaluation datasets. By applying our novel **DREAM** (Debate-based RElevance Assessment with Multi-agents) framework, we:
+**BRIDGE** is a refined Information Retrieval (IR) benchmark designed to solve the critical issue of **missing relevant chunks (holes)** in existing evaluation datasets.
+Existing IR evaluation datasets often suffer from incomplete annotations, leading to unfair system comparisons.
 
+By applying our novel **DREAM** (Debate-based RElevance Assessment with Multi-agents) framework, BRIDGE provides a more complete and reliable ground truth.
+
+### 🌟 Key Achievements
 - 🎯 Identified **29,824 missing relevant chunks** across 7 benchmark subsets
 - 📈 Achieved **428% increase** over the originally annotated 6,976 gold chunks
 - ✅ Maintained **95.2% labeling accuracy** with only **3.5% human involvement**
 - 🔧 Enabled fairer retrieval system comparisons and more aligned RAG evaluation
 
-## Key Statistics
+## 📊 Dataset Statistics
 
-| Dataset | Source | Domain | # Corpus | # Queries | Avg. # C/Q in Original | Avg. # C/Q in BRIDGE |
+BRIDGE significantly expands the density of relevant documents per query across diverse domains.
+
+| Dataset | Source | Domain | # Corpus | # Queries | Avg. # C/Q (Original) | Avg. # C/Q (BRIDGE) |
 |---------|--------|-----------|----------------|---------------|----------|----------|
-| MS MARCO | MS MARCO/BEIR | Web Search | 8,841,823 | 550 | 1.05 | 16.77 | 
-| NQ | NQ/BEIR | Web Search | 2,681,468 | 550 | 1.20 | 7.04 |
-| Lifestyle | LoTTE/RobustQA | Cooking, Sports, Travel| 119,461 | 550 | 2.30 | 6.61 |
-| Recreation | LoTTE/RobustQA | Gaming, Anime, Movies | 166,975 | 550 | 2.30  | 4.63 |
-| Science | LoTTE/RobustQA | Math, Physics, Biology | 1,000,000 | 357 | 1.90 | 16.09 |
-| Technology | LoTTE/RobustQA | Apple, Android, Security | 638,509 | 550 | 2.20 | 10.92 |
-| Writing | LoTTE/RobustQA | English | 199,994 | 550 | 2.20 | 8.52 |
+| MS MARCO | MS MARCO/BEIR | Web Search | 8.8M | 550 | 1.05 | 16.77 | 
+| NQ | NQ/BEIR | Web Search | 2.6M | 550 | 1.20 | 7.04 |
+| Lifestyle | LoTTE/RobustQA | Cooking, Sports, Travel| 119K | 550 | 2.30 | 6.61 |
+| Recreation | LoTTE/RobustQA | Gaming, Anime, Movies | 166K | 550 | 2.30  | 4.63 |
+| Science | LoTTE/RobustQA | Math, Physics, Biology | 1.0M | 357 | 1.90 | 16.09 |
+| Technology | LoTTE/RobustQA | Apple, Android, Security | 638K | 550 | 2.20 | 10.92 |
+| Writing | LoTTE/RobustQA | English | 199K | 550 | 2.20 | 8.52 |
 
 ---
 
 # 🚀 Quick Start
 
-## Installation
+## 1. Setup Environment
 ```bash
+# Create a new conda environment with Python 3.10
+conda create -n bridge python==3.10
+conda activate bridge
+
 # Clone the repository
-git clone https://github.com/your-org/bridge-benchmark.git
+git clone https://github.com/DISL-Lab/BRIDGE-Benchmark.git
 cd bridge-benchmark
 
 # Install dependencies
 pip install -r requirements.txt
 ```
 
-BRIDGE provides refined annotations for existing benchmark datasets. We utilize seven IR benchmark test subsets: MS MARCO and NQ from [BEIR](https://github.com/beir-cellar/beir); and Lifestyle, Recreation, Science, Technology, and Writing from [RobustQA](https://github.com/awslabs/robustqa-acl23). 
+## 2. Data Preparation
+BRIDGE provides refined annotations for existing benchmark datasets. \
+We utilize seven IR benchmark test subsets:
+- MS MARCO and NQ from [BEIR](https://github.com/beir-cellar/beir)
+- Lifestyle, Recreation, Science, Technology, and Writing from [RobustQA](https://github.com/awslabs/robustqa-acl23)
 
-To use BRIDGE, you need to download the source corpora and apply our annotations.
+To use BRIDGE, you need to download the source corpora first.
 
 
-## Step 1: Download Source Corpora
+### Step 1: Download Source Corpora
 
 **For MS MARCO & NQ:**
 ```bash
@@ -65,7 +81,7 @@ python -c "from beir import util; util.download_and_unzip('https://public.ukp.in
 
 Alternatively, manually download the dataset at [BEIR GitHub](https://github.com/beir-cellar/beir). 
 
-We adopt corpus.jsonl as a corpus.
+We use `corpus.jsonl` as the source corpus.
 
 
 **For LoTTE datasets (Lifestyle, Recreation, Science, Technology, Writing):**
@@ -82,18 +98,17 @@ cd robustqa-acl23/data
 wget -c "https://downloads.cs.stanford.edu/nlp/data/colbert/colbertv2/lotte.tar.gz"
 tar -xvzf lotte.tar.gz
 ```
-- Download raw data here: [https://downloads.cs.stanford.edu/nlp/data/colbert/colbertv2/lotte.tar.gz](https://downloads.cs.stanford.edu/nlp/data/colbert/colbertv2/lotte.tar.gz) into robustqa-acl23/data.
-- Annotations: there is no data license specfied [https://github.com/stanford-futuredata/ColBERT/blob/main/LoTTE.md](https://github.com/stanford-futuredata/ColBERT/blob/main/LoTTE.md). We only keep doc_id and qid in the published annotation files.
-- To replicate documents.jsonl and annotations.jsonl, run:
+
+To replicate documents.jsonl and annotations.jsonl, run:
 ```bash
 python ../move_lotte_files.py
 python code/process_raw.py --data {lifestyle|recreation|technology|science|writing} --split {test}
 ```
-We adopt documents.jsonl as a corpus.
+We use `documents.jsonl` as the source corpus.
 
-## Step 2: Download BRIDGE Annotations
+### Step 2: Download BRIDGE Annotations
 
-We provide the refined relevance annotations, query IDs, relevant document IDs, and answers for all datasets on huggingface:
+Download our refined relevance annotations, query IDs, and answers from huggingface:
 
 ```python
 python datasets/qrels/get_data.py
@@ -101,11 +116,11 @@ python datasets/qrels/get_data.py
 
 ---
 
-# 📊 Evaluating Retriever on BRIDGE
+# 🧪 Evaluating Retriever on BRIDGE
+We provide scripts to evaluate both standard retrievers and RAG systems using the BRIDGE benchmark.
 
-## Retrieval Systems Example
+## Using Provided Baselines
 
-We provide some retrieval systems evaluated in our paper:
 ```python
 
 # Retrieve
@@ -116,13 +131,13 @@ python retrieve.py --model {retriever_name} --dataset {dataset_name} --k 10
 python evaluation.py --model {retriever_name} --dataset {dataset_name} --k 10
 ```
 
-## Evaluate Your Retrieval System
+## Evaluating Your Own System
 Put your retrieved results on path retrieval/results/{retriever_name}/{dataset_name}_retrieved_corpus.json, and run:
 ```python
 python evaluation.py --model {retriever_name} --dataset {dataset_name} --k 10
 ```
 
-## RAG Evaluation
+## Evaluating RAG Systems
 
 ```python
 # Generation
