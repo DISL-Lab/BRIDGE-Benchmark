@@ -57,7 +57,7 @@ def retrieve(dataset, k=10):
         top_k_docs = dict(sorted(doc_scores.items(), key=lambda x: x[1], reverse=True)[:k])
         filtered_results[query_id] = {}
         for doc_id in top_k_docs:
-            filtered_results[query_id][doc_id] = {'score': f'{top_k_docs[doc_id]:.5f}', 'text': corpus[doc_id]['contents']}
+            filtered_results[query_id][doc_id] = {'score': f'{top_k_docs[doc_id]:.5f}', 'text': corpus[doc_id]['text']}
     
     save_json(filtered_results, output_path)
     print(f"Results saved to {output_path}")
