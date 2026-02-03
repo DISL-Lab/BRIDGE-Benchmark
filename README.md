@@ -162,7 +162,9 @@ The evaluation results are saved at `./generation/results/evaluation/{retriever_
 
 After filling annotation holes with **BRIDGE**, system rankings change significantly, and retrieval performance aligns more closely with downstream generation tasks.
 
-<img width="1453" height="517" alt="Image" src="https://github.com/user-attachments/assets/5bf988a6-a01f-440c-9c69-289082701dcf" />
+<p align="center">
+<img width="726" alt="Image" src="https://github.com/user-attachments/assets/5bf988a6-a01f-440c-9c69-289082701dcf" />
+</p>
 
 ## Retrieval-Generation Alignment
 
