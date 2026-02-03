@@ -1,15 +1,15 @@
 # 🌉 BRIDGE: A Reliable Information Retrieval Benchmark with Complete Annotations (ICLR 2026)
 
-<div align="center">
+<div>
 
 [![Paper](https://img.shields.io/badge/Paper-ICLR%202026-blue)](https://openreview.net/forum?id=DD5RNCHuzq&noteId=HEIdjduzOv)
 [![Dataset](https://img.shields.io/badge/Dataset-HuggingFace-yellow)](https://huggingface.co/datasets/DISLab/BRIDGE-NQ)
 
 </div>
 
----
 
 # 🔍 Overview
+<img width="1428" height="473" alt="Image" src="https://github.com/user-attachments/assets/5dfddc1e-7a22-460e-bd9d-b8a7260e7470" />
 
 BRIDGE is a refined IR benchmark dataset that addresses the critical problem of **missing relevant chunks (holes)** in existing IR evaluation datasets. By applying our novel **DREAM** (Debate-based RElevance Assessment with Multi-agents) framework, we:
 
@@ -140,15 +140,9 @@ python evaluation.py --model {retriever_name} --dataset {dataset_name} --llm_eva
 
 ## Retrieval Performance Improvement
 
-After filling holes with BRIDGE, all 25 retrieval systems show improved Hit@10 scores:
+After filling holes with BRIDGE, the ranking between retrieval systems changed and the performance of retrieval and generation become more aligned.
 
-| System Type | Example Systems | Avg. Hit@10 Gain |
-|-------------|----------------|------------------|
-| Sparse | BM25, SPLADE | +0.17 |
-| Dense | DPR, Arctic, ANCE | +0.15 |
-| BM25 + Rerank | TinyBERT, MonoT5 | +0.15 |
-| ANCE + Rerank | TinyBERT, MonoT5 | +0.14 |
-| BM25 + Rewrite | HyDE, Q2D, MuGI | **+0.25** |
+<img width="1453" height="517" alt="Image" src="https://github.com/user-attachments/assets/5bf988a6-a01f-440c-9c69-289082701dcf" />
 
 ## Retrieval-Generation Alignment
 
@@ -157,7 +151,6 @@ BRIDGE significantly improves RAG evaluation reliability:
 | Metric | Before BRIDGE | After BRIDGE | Improvement |
 |--------|---------------|--------------|-------------|
 | RAGAlign@10 | 0.70 | 0.84 | **+0.14** |
-| Pearson Correlation | 0.87 | 0.985 | +0.115 |
 
 ---
 
