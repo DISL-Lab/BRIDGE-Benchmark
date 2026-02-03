@@ -24,7 +24,7 @@ BRIDGE is a refined IR benchmark dataset that addresses the critical problem of 
 - 🎯 Identified **29,824 missing relevant chunks** across 7 benchmark subsets
 - 📈 Achieved **428% increase** over the originally annotated 6,976 gold chunks
 - ✅ Maintained **95.2% labeling accuracy** with only **3.5% human involvement**
-- 🔧 Enabled fairer retrieval system comparisons and more reliable RAG evaluation
+- 🔧 Enabled fairer retrieval system comparisons and more aligned RAG evaluation
 
 ### Key Statistics
 
