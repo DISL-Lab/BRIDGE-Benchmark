@@ -89,7 +89,7 @@ cd robustqa-acl23
 # The LoTTE datasets include: lifestyle, recreation, science, technology, writing
 ```
 - Download raw data here: [https://downloads.cs.stanford.edu/nlp/data/colbert/colbertv2/lotte.tar.gz](https://downloads.cs.stanford.edu/nlp/data/colbert/colbertv2/lotte.tar.gz) into robustqa-acl23/data/lotte.
-- Annotations: there is no data license specfied [https://github.com/stanford-futuredata/ColBERT/blob/main/LoTTE.md.](https://github.com/stanford-futuredata/ColBERT/blob/main/LoTTE.md.) We only keep doc_id and qid in the published annotation files.
+- Annotations: there is no data license specfied [https://github.com/stanford-futuredata/ColBERT/blob/main/LoTTE.md](https://github.com/stanford-futuredata/ColBERT/blob/main/LoTTE.md). We only keep doc_id and qid in the published annotation files.
 - To replicate documents.jsonl and annotations.jsonl, run:
 ```bash
 python code/process_raw.py --dataset {lifestyle|recreation|technology|science|writing} --split {test|dev}
