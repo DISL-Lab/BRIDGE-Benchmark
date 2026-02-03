@@ -2,7 +2,7 @@
 
 <div align="center">
 
-[![Paper](https://img.shields.io/badge/Paper-ICLR%202026-blue)](link-to-paper)
+[![Paper](https://img.shields.io/badge/Paper-ICLR%202026-blue)]([link-to-paper](https://openreview.net/forum?id=DD5RNCHuzq&noteId=HEIdjduzOv))
 [![Dataset](https://img.shields.io/badge/Dataset-HuggingFace-yellow)](link-to-huggingface)
 [![License](https://img.shields.io/badge/License-MIT-green)](LICENSE)
 
