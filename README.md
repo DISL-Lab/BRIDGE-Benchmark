@@ -52,7 +52,10 @@ cd bridge-benchmark
 pip install -r requirements.txt
 ```
 
-BRIDGE provides refined annotations for existing benchmark datasets. To use BRIDGE, you need to download the source corpora and apply our annotations.
+BRIDGE provides refined annotations for existing benchmark datasets. We utilize seven IR benchmark subsets: MS MARCO and NQ from [BEIR](https://github.com/beir-cellar/beir); and Lifestyle, Recreation, Science, Technology, and Writing from [RobustQA](https://github.com/awslabs/robustqa-acl23). 
+
+To use BRIDGE, you need to download the source corpora and apply our annotations.
+
 
 ### Step 1: Download Source Corpora
 
@@ -68,7 +71,7 @@ python -c "from beir import util; util.download_and_unzip('https://public.ukp.in
 python -c "from beir import util; util.download_and_unzip('https://public.ukp.informatik.tu-darmstadt.de/thakur/BEIR/datasets/nq.zip', 'datasets')"
 ```
 
-Alternatively, manually download the dataset at [BEIR GitHub](https://github.com/beir-cellar/beir):
+Alternatively, manually download the dataset at [BEIR GitHub](https://github.com/beir-cellar/beir)
 
 
 **For LoTTE datasets (Lifestyle, Recreation, Science, Technology, Writing):**
@@ -93,31 +96,25 @@ Please refer to the RobustQA repository for detailed preprocessing steps.
 
 ### Step 2: Download BRIDGE Annotations
 
-We provide the refined relevance annotations, query IDs, relevant document IDs, and answers for all datasets:
+We provide the refined relevance annotations, query IDs, relevant document IDs, and answers for all datasets on huggingface:
 
-**Option A: HuggingFace (Recommended)**
 ```python
 from datasets import load_dataset
 
-# Load BRIDGE annotations
-bridge_annotations = load_dataset("your-org/bridge-benchmark")
-
 # Access annotations for each dataset
-ms_marco_bridge = bridge_annotations["ms_marco"]
-nq_bridge = bridge_annotations["nq"]
-lifestyle_bridge = bridge_annotations["lifestyle"]
-recreation_bridge = bridge_annotations["recreation"]
-science_bridge = bridge_annotations["science"]
-technology_bridge = bridge_annotations["technology"]
-writing_bridge = bridge_annotations["writing"]
+msmarco_bridge = load_dataset("DISLab/BRIDGE-MSMARCO")
+nq_bridge = load_dataset("DISLab/BRIDGE-NQ")
+lotte_bridge = load_datast("DISLab/BRIDGE-LoTTE")
+
+msmarco = msmarco_bridge["test"]
+nq = nq_bridge["test"]
+lifestyle = lotte_bridge["lifestyle"]
+recreation = lotte_bridge["recreation"]
+science = lotte_bridge["science"]
+technology = lotte_bridge["technology"]
+writing = lotte_bridge["writing"]
 ```
 
-**Option B: Direct Download**
-```bash
-# Download BRIDGE annotations
-wget https://your-link/bridge_annotations.zip
-unzip bridge_annotations.zip
-```
 
 ### Step 3: Merge Corpus with BRIDGE Annotations
 ```python
