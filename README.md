@@ -57,15 +57,15 @@ pip install -r requirements.txt
 ```
 
 ## 2. Data Preparation
-BRIDGE provides refined annotations for existing benchmark datasets. \
+**BRIDGE** provides refined annotations for existing benchmark datasets. \
 We utilize seven IR benchmark test subsets:
 - MS MARCO and NQ from [BEIR](https://github.com/beir-cellar/beir)
 - Lifestyle, Recreation, Science, Technology, and Writing from [RobustQA](https://github.com/awslabs/robustqa-acl23)
 
-To use BRIDGE, you need to download the source corpora first.
+To use **BRIDGE**, you need to download the source corpora first.
 
 
-### Step 1: Download Source Corpora
+### Step 1️⃣: Download Source Corpora
 
 **For MS MARCO & NQ:**
 ```bash
@@ -94,7 +94,6 @@ git clone https://github.com/awslabs/robustqa-acl23.git
 cd robustqa-acl23/data
 
 # Follow their instructions to download and preprocess LoTTE datasets
-# The LoTTE datasets include: lifestyle, recreation, science, technology, writing
 wget -c "https://downloads.cs.stanford.edu/nlp/data/colbert/colbertv2/lotte.tar.gz"
 tar -xvzf lotte.tar.gz
 ```
@@ -106,7 +105,7 @@ python code/process_raw.py --data {lifestyle|recreation|technology|science|writi
 ```
 We use `documents.jsonl` as the source corpus.
 
-### Step 2: Download BRIDGE Annotations
+### Step 2️⃣: Download BRIDGE Annotations
 
 Download our refined relevance annotations, query IDs, and answers from huggingface:
 
@@ -120,6 +119,7 @@ python datasets/qrels/get_data.py
 We provide scripts to evaluate both standard retrievers and RAG systems using the BRIDGE benchmark.
 
 ## Using Provided Baselines
+We provide several retrieval systems such as `bm25`, `ance`, `splade`, `arctic`, `tct_colbert`.
 
 ```python
 
@@ -130,9 +130,11 @@ python retrieve.py --model {retriever_name} --dataset {dataset_name} --k 10
 # Evaluation
 python evaluation.py --model {retriever_name} --dataset {dataset_name} --k 10
 ```
+The retrieved results are saved at `./retrieval/results/{retriever_name}/{dataset_name}_retrieved_corpus.json` \
+The evaluation results are saved at `./retrieval/results/evaluation/{retriever_name}/{dataset_name}_evaluation.json`
 
 ## Evaluating Your Own System
-Put your retrieved results on path retrieval/results/{retriever_name}/{dataset_name}_retrieved_corpus.json, and run:
+Put your retrieved results on path `./retrieval/results/{retriever_name}/{dataset_name}_retrieved_corpus.json`, and run:
 ```python
 python evaluation.py --model {retriever_name} --dataset {dataset_name} --k 10
 ```
@@ -142,11 +144,13 @@ python evaluation.py --model {retriever_name} --dataset {dataset_name} --k 10
 ```python
 # Generation
 cd generation
-CUDA_VISIBLE_DEVICES=6 python generate.py --model tct_colbert --dataset nq --k 10
+python generate.py --model {retriever_name} --dataset nq --k 10
 
 # Evaluation
-python evaluation.py --model {retriever_name} --dataset {dataset_name} --llm_eval True --api_key {Your-OpenAI-API-Key}
+python evaluation.py --model {retriever_name} --dataset {dataset_name} --llm_eval True/False --api_key {Your-OpenAI-API-Key}
 ```
+The generation results are saved at `./generation/results/{retriever_name}/{dataset_name}_generation.json` \
+The evaluation results are saved at `./generation/results/evaluation/{retriever_name}/{dataset_name}_evaluation.json`
 
 ---
 
@@ -155,13 +159,13 @@ python evaluation.py --model {retriever_name} --dataset {dataset_name} --llm_eva
 
 ## Retrieval Performance Improvement
 
-After filling holes with BRIDGE, the ranking between retrieval systems changed and the performance of retrieval and generation become more aligned.
+After filling annotation holes with **BRIDGE**, system rankings change significantly, and retrieval performance aligns more closely with downstream generation tasks.
 
 <img width="1453" height="517" alt="Image" src="https://github.com/user-attachments/assets/5bf988a6-a01f-440c-9c69-289082701dcf" />
 
 ## Retrieval-Generation Alignment
 
-BRIDGE significantly improves RAG evaluation reliability:
+BRIDGE significantly improves the reliability of RAG evaluation:
 
 | Metric | Before BRIDGE | After BRIDGE | Improvement |
 |--------|---------------|--------------|-------------|
@@ -189,10 +193,10 @@ This project is licensed under the MIT License - see the [LICENSE](LICENSE) file
 
 ### Source Dataset Licenses
 
-BRIDGE builds upon existing datasets with the following licenses:
+BRIDGE builds upon existing datasets. Please respect their original licenses:
 
 - **MS MARCO**: [Microsoft Research Data License](https://microsoft.github.io/msmarco/)
-- **Natural Questions (NQ)**: [CC BY-SA 3.0](https://creativecommons.org/licenses/by-sa/3.0/)
+- **Natural Questions (NQ)**: [Apache License 2.0](https://github.com/google-research-datasets/natural-questions/blob/master/LICENSE)
 - **LoTTE (RobustQA subsets)**: Please refer to [RobustQA repository](https://github.com/awslabs/robustqa-acl23)
 
 When using BRIDGE, please ensure compliance with the original dataset licenses.
