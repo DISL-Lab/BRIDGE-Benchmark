@@ -52,58 +52,96 @@ cd bridge-benchmark
 pip install -r requirements.txt
 ```
 
-### Download BRIDGE Dataset
+BRIDGE provides refined annotations for existing benchmark datasets. To use BRIDGE, you need to download the source corpora and apply our annotations.
 
-BRIDGE provides refined annotations for existing benchmark datasets. Due to licensing requirements, we provide different access methods for each source dataset:
+### Step 1: Download Source Corpora
 
-#### Option 1: Direct Download (Recommended)
+**For MS MARCO & NQ:**
+```bash
+# Install BEIR
+pip install beir
 
-Download the complete BRIDGE annotations from HuggingFace:
+# Download MS MARCO corpus
+python -c "from beir import util; util.download_and_unzip('https://public.ukp.informatik.tu-darmstadt.de/thakur/BEIR/datasets/msmarco.zip', 'datasets')"
+
+# Download NQ corpus
+python -c "from beir import util; util.download_and_unzip('https://public.ukp.informatik.tu-darmstadt.de/thakur/BEIR/datasets/nq.zip', 'datasets')"
+```
+
+Alternatively, manually download the dataset at [BEIR GitHub](https://github.com/beir-cellar/beir):
+
+
+**For LoTTE datasets (Lifestyle, Recreation, Science, Technology, Writing):**
+
+Follow the instructions from [RobustQA GitHub](https://github.com/awslabs/robustqa-acl23):
+
+```bash
+# Clone RobustQA repository
+git clone https://github.com/awslabs/robustqa-acl23.git
+cd robustqa-acl23
+
+# Follow their instructions to download and preprocess LoTTE datasets
+# The LoTTE datasets include: lifestyle, recreation, science, technology, writing
+```
+- Download raw data here: [https://downloads.cs.stanford.edu/nlp/data/colbert/colbertv2/lotte.tar.gz](https://downloads.cs.stanford.edu/nlp/data/colbert/colbertv2/lotte.tar.gz) into robustqa-acl23/data/lotte.
+- Annotations: there is no data license specfied [https://github.com/stanford-futuredata/ColBERT/blob/main/LoTTE.md.](https://github.com/stanford-futuredata/ColBERT/blob/main/LoTTE.md.) We only keep doc_id and qid in the published annotation files.
+- To replicate documents.jsonl and annotations.jsonl, run:
+```bash
+python code/process_raw.py --dataset {lifestyle|recreation|technology|science|writing} --split {test|dev}
+```
+Please refer to the RobustQA repository for detailed preprocessing steps.
+
+### Step 2: Download BRIDGE Annotations
+
+We provide the refined relevance annotations, query IDs, relevant document IDs, and answers for all datasets:
+
+**Option A: HuggingFace (Recommended)**
 ```python
 from datasets import load_dataset
 
-# Load BRIDGE dataset
-bridge_data = load_dataset("your-org/bridge-benchmark")
+# Load BRIDGE annotations
+bridge_annotations = load_dataset("your-org/bridge-benchmark")
 
-# Access specific subsets
-ms_marco = bridge_data["ms_marco"]
-nq = bridge_data["nq"]
-lifestyle = bridge_data["lifestyle"]
-# ... and more
+# Access annotations for each dataset
+ms_marco_bridge = bridge_annotations["ms_marco"]
+nq_bridge = bridge_annotations["nq"]
+lifestyle_bridge = bridge_annotations["lifestyle"]
+recreation_bridge = bridge_annotations["recreation"]
+science_bridge = bridge_annotations["science"]
+technology_bridge = bridge_annotations["technology"]
+writing_bridge = bridge_annotations["writing"]
 ```
 
-#### Option 2: Build from Source Datasets
-
-For full reproducibility, you can reconstruct BRIDGE by combining source datasets with our annotations:
-
-**Step 1: Download Source Datasets**
-
-- **MS MARCO & NQ (via BEIR)**: 
+**Option B: Direct Download**
 ```bash
-  # These are publicly available under Apache 2.0 license
-  python scripts/download_beir.py --datasets msmarco nq
+# Download BRIDGE annotations
+wget https://your-link/bridge_annotations.zip
+unzip bridge_annotations.zip
 ```
 
-- **RobustQA (Lifestyle, Recreation, Science, Technology, Writing)**:
-```bash
-  # Download from official RobustQA repository
-  git clone https://github.com/awslabs/robustqa-acl23.git
-  # Follow their instructions to download LoTTE datasets
-```
-
-**Step 2: Apply BRIDGE Annotations**
+### Step 3: Merge Corpus with BRIDGE Annotations
 ```python
-from bridge import load_bridge_annotations, merge_annotations
+from bridge import merge_annotations
 
-# Load our refined annotations
-annotations = load_bridge_annotations()
-
-# Merge with source datasets
+# Merge source corpus with BRIDGE annotations
 bridge_dataset = merge_annotations(
-    source_datasets=["ms_marco", "nq", "lifestyle", ...],
-    annotations=annotations
+    corpus_path="datasets/msmarco/corpus.jsonl",  # Path to BEIR corpus
+    annotations_path="bridge_annotations/ms_marco/qrels_bridge.tsv",
+    queries_path="bridge_annotations/ms_marco/queries.jsonl",
+    answers_path="bridge_annotations/ms_marco/answers.jsonl"
 )
 ```
+
+Or use our automated script:
+```bash
+# Merge all datasets at once
+python scripts/build_bridge.py \
+    --beir_path datasets/ \
+    --lotte_path robustqa-acl23/data/lotte/ \
+    --bridge_annotations bridge_annotations/ \
+    --output_path bridge_complete/
+```
+
 
 ---
 
