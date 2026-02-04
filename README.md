@@ -210,7 +210,7 @@ When using BRIDGE, please ensure compliance with the original dataset licenses.
 
 For questions or issues, please:
 - Open an issue on [GitHub](https://github.com/DISL-Lab/bridge-benchmark/issues)
-- Contact: [minjeong.ban@kaist.ac.kr](mailto:minjeong.ban@kaist.ac.kr)
+- Contact: [minjeong.ban@kaist.ac.kr](mailto:minjeong.ban@kaist.ac.kr) / [songhwanjun@kaist.ac.kr](mailto:songhwanjun@kaist.ac.kr)
 
 ---
 
