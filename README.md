@@ -31,13 +31,13 @@ BRIDGE significantly expands the density of relevant documents per query across 
 
 | Dataset | Source | Domain | # Corpus | # Queries | Avg. # C/Q (Original) | Avg. # C/Q (BRIDGE) |
 |---------|--------|-----------|----------------|---------------|----------|----------|
-| MS MARCO | MS MARCO/BEIR | Web Search | 8.8M | 550 | 1.05 | 16.77 | 
-| NQ | NQ/BEIR | Web Search | 2.6M | 550 | 1.20 | 7.04 |
-| Lifestyle | LoTTE/RobustQA | Cooking, Sports, Travel| 119K | 550 | 2.30 | 6.61 |
-| Recreation | LoTTE/RobustQA | Gaming, Anime, Movies | 166K | 550 | 2.30  | 4.63 |
-| Science | LoTTE/RobustQA | Math, Physics, Biology | 1.0M | 357 | 1.90 | 16.09 |
-| Technology | LoTTE/RobustQA | Apple, Android, Security | 638K | 550 | 2.20 | 10.92 |
-| Writing | LoTTE/RobustQA | English | 199K | 550 | 2.20 | 8.52 |
+| MS MARCO | BEIR(MS MARCO) | Web Search | 8.8M | 550 | 1.05 | 16.77 | 
+| NQ | BEIR(NQ) | Web Search | 2.6M | 550 | 1.20 | 7.04 |
+| Lifestyle | RobustQA(LoTTE) | Cooking, Sports, Travel| 119K | 550 | 2.30 | 6.61 |
+| Recreation | RobustQA(LoTTE) | Gaming, Anime, Movies | 166K | 550 | 2.30  | 4.63 |
+| Science | RobustQA(LoTTE) | Math, Physics, Biology | 1.0M | 357 | 1.90 | 16.09 |
+| Technology | RobustQA(LoTTE) | Apple, Android, Security | 638K | 550 | 2.20 | 10.92 |
+| Writing | RobustQA(LoTTE) | English | 199K | 550 | 2.20 | 8.52 |
 
 ---
 
