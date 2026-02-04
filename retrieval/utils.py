@@ -46,11 +46,8 @@ def load_bridge_dataset(dataset_name: str) -> str:
         "writing": "Writing"
     }
     
-    if dataset_name.lower() == 'msmarco' or dataset_name.lower() == 'nq':
-        df = load_dataset(f"DISLab/BRIDGE-{dataset_map[dataset_name.lower()]}", split='test')
-    else:
-        lotte_bridge = load_dataset("DISLab/BRIDGE-LoTTE", dataset_map[dataset_name.lower()])
-        df = lotte_bridge["test"]
+    bridge = load_dataset("DISLab/BRIDGE", dataset_map[dataset_name.lower()])
+    df = bridge["test"]
     return df
 
 

@@ -2,13 +2,13 @@ import os
 from datasets import load_dataset
 
 
-msmarco_bridge = load_dataset("DISLab/BRIDGE-MSMARCO")
-nq_bridge = load_dataset("DISLab/BRIDGE-NQ")
-lifestyle_bridge = load_dataset("DISLab/BRIDGE-LoTTE", 'Lifestyle')
-recreation_bridge = load_dataset("DISLab/BRIDGE-LoTTE", 'Recreation')
-science_bridge = load_dataset("DISLab/BRIDGE-LoTTE", 'Science')
-technology_bridge = load_dataset("DISLab/BRIDGE-LoTTE", 'Technology')
-writing_bridge = load_dataset("DISLab/BRIDGE-LoTTE", 'Writing')
+msmarco_bridge = load_dataset("DISLab/BRIDGE", 'MSMARCO')
+nq_bridge = load_dataset("DISLab/BRIDGE", 'NQ')
+lifestyle_bridge = load_dataset("DISLab/BRIDGE", 'Lifestyle')
+recreation_bridge = load_dataset("DISLab/BRIDGE", 'Recreation')
+science_bridge = load_dataset("DISLab/BRIDGE", 'Science')
+technology_bridge = load_dataset("DISLab/BRIDGE", 'Technology')
+writing_bridge = load_dataset("DISLab/BRIDGE", 'Writing')
 
 SAVE_ROOT = "./datasets/qrels"
 os.makedirs(SAVE_ROOT, exist_ok=True)
