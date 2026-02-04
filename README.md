@@ -4,7 +4,7 @@
 ## A Reliable Information Retrieval Benchmark with Complete Annotations (ICLR 2026)
 
 [![Paper](https://img.shields.io/badge/Paper-ICLR%202026-blue)](https://openreview.net/forum?id=DD5RNCHuzq&noteId=HEIdjduzOv)
-[![Dataset](https://img.shields.io/badge/Dataset-HuggingFace-yellow)](https://huggingface.co/datasets/DISLab/BRIDGE-NQ)
+[![Dataset](https://img.shields.io/badge/Dataset-HuggingFace-yellow)](https://huggingface.co/datasets/DISLab/BRIDGE)
 [![License](https://img.shields.io/badge/License-CC%20BY%204.0-green)](https://creativecommons.org/licenses/by/4.0/)
 
 <img width="1428" height="473" alt="Image" src="https://github.com/user-attachments/assets/5dfddc1e-7a22-460e-bd9d-b8a7260e7470" />
