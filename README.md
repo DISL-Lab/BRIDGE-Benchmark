@@ -111,6 +111,7 @@ We use `documents.jsonl` as the source corpus.
 Download our refined relevance annotations, query IDs, and answers from huggingface:
 
 ```python
+cd BRIDGE-Benchmark
 python datasets/qrels/get_data.py
 ```
 
