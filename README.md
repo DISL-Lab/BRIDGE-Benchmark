@@ -3,7 +3,7 @@
 # 🌉 BRIDGE
 ## A Reliable Information Retrieval Benchmark with Complete Annotations (ICLR 2026)
 
-[![Paper](https://img.shields.io/badge/Paper-ICLR%202026-blue)](https://openreview.net/forum?id=DD5RNCHuzq&noteId=HEIdjduzOv)
+[![Paper](https://img.shields.io/badge/Paper-ICLR%202026-blue)](https://arxiv.org/abs/2602.06526)
 [![Dataset](https://img.shields.io/badge/Dataset-HuggingFace-yellow)](https://huggingface.co/datasets/DISLab/BRIDGE)
 [![License](https://img.shields.io/badge/License-CC%20BY%204.0-green)](https://creativecommons.org/licenses/by/4.0/)
 
